@@ -1,0 +1,256 @@
+/*
+    Control : santPicker (DatePicker)
+    Author : Santokh Singh
+    Vesrion :1.06.07.2024
+
+    Change Log
+    Date        Change
+    07/06/2024  Added Date formats, calendar image background
+ */
+.santPicker {
+    background-color: transparent;
+    background-image: url(/FINNONE/Doc_Management/santPicker/css/calendar.png);
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: right;
+}
+table.datepicker_tbl td {
+    text-align: right !important;
+}
+.santPickerdp {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    max-width: 350px;
+    max-height: 350px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.calcender_ddl {
+    border: 1px solid #ddd;
+}
+/* Modal Content/Box */
+.santPickerdp-content {
+    background-color: #fefefe;
+    padding: 10px;
+}
+
+/* The Close Button */
+.close_dp {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: normal;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 4px 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+    height: 15px;
+    max-width: 250px;
+    line-height: 15px;
+    color: white !important;
+    background-color: #fff;
+    background-image: none;
+    background-color: #2a9d8f !important;
+}
+
+    .close_dp:hover,
+    .close_dp:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.seldt_dp_disabled {
+    color: #808080;
+    display: block;
+    font-size: 14px;
+    padding: 4px;
+    font-weight: normal;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #ccc;
+    background-image: none;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+    /*.seldt_dp_disabled::after {
+        content: "day disabled";
+        padding: 2px;
+        display: none;
+        position: relative;
+        top: -20px;
+        right: -30px;
+        width: 150px;
+        text-align: center;
+        background-color: transparent;
+    }
+
+    .seldt_dp_disabled:hover::after {
+        display:inline;
+    }*/
+.seldt_dp_holiday {
+    color: white;
+    display: block;
+    font-size: 14px;
+    padding: 4px;
+    font-weight: normal;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #26b104;
+    background-image: none;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    
+}
+    /*.seldt_dp_holiday::after {
+        content: "day disabled";
+        padding: 2px;
+        display: none;
+        position: relative;
+        top: -20px;
+        right: -30px;
+        width: 150px;
+        text-align: center;
+        background-color: #fef4c5;
+        border: 1px solid #d4b943;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -ms-border-radius: 2px;
+        border-radius: 2px;
+    }*/
+
+    /*.seldt_dp_holiday:hover::after {
+        display: block;
+    }*/
+.seldt_dp {
+    color: black;
+    display: block;
+    font-size: 14px;
+    padding: 4px;
+    font-weight: normal;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #fff;
+    background-image: none;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    /*float: right;*/
+}
+
+.seldt_dp:hover {
+    background-color: #2a9d8f;
+    cursor: pointer;
+    color: white
+}
+
+.datepicker_tbl {
+    border-collapse: collapse !important;
+    /*background-color: transparent;*/
+}
+
+.datepicker_tbl-bordered th,
+.datepicker_tbl-bordered td {
+    border: 1px solid #ddd !important;
+    height: 20px;
+}
+
+.datepicker_tbl > tr > th {
+    background-color: #015277 !important;
+    color: white !important;
+}
+
+.datepicker_tbl {
+    width: 100%;
+    max-width: 100%;
+    /*margin-bottom: 5px;*/
+    color: #015277;
+    font-size: 13px !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+    .datepicker_tbl > thead > tr > th,
+    .datepicker_tbl > tbody > tr > th,
+    .datepicker_tbl > tfoot > tr > th,
+    .datepicker_tbl > thead > tr > td,
+    .datepicker_tbl > tbody > tr > td,
+    .datepicker_tbl > tfoot > tr > td {
+        padding: 2px;
+        line-height: 1;
+        vertical-align: top;
+        border-top: 1px solid #dddddd;
+    }
+
+    .datepicker_tbl > thead > tr > th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dddddd;
+    }
+
+select.dp-control {
+    height: 25px !important;
+}
+
+.dp-control {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: normal;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 4px 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+    height: 15px;
+    max-width: 250px;
+    /*min-width: 100px;*/
+    /*line-height: 1.6;*/
+    line-height: 15px;
+    color: #015277 !important;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+    .dp-control:focus, .dp-control:active {
+        border: 1px solid #015277 !important;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+
+.focus {
+    border: 1px solid #015277 !important;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.dp-control:disabled {
+    background-color: #efeded !important;
+    color: #015277 !important;
+}
+
+.dp-control > select {
+    max-width: 120px;
+}
+
+.dp-control > input[type=text] {
+    max-width: 120px;
+}
