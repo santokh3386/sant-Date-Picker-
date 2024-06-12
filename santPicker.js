@@ -323,8 +323,12 @@ const formatTimezone = (date) => {
 /*--------------------------------------------------------------------Date Picker Code Starts here----------------------------------------------------------*/
 (function ($) {
     var defaults = {
-        startYear: 10,
-        noOfyears: 20,
+        startYear: 50,
+        noOfyears: 0,
+        startDate: '01-Jan-2000',
+        endDate: dateFormat(new Date(), 'dd-mmm-yyyy'),
+        showTime: false,
+        timeFormat: '24HR',//'12HR'
         ctrlId: '',
         format: 'dd-mmm-yyyy',//For now only dd-MMM-yyyy,dd/mm/yyyy,dd-mm-yyyy formats are supported
         monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], // Names of months for drop-down and formatting
@@ -336,13 +340,13 @@ const formatTimezone = (date) => {
         holidays: [] || [''],
         disableddays: [] || []
     };
-    var html = "<div id='dtModal' class='santPickerdp'> <div class='santPickerdp-content'> <table class='datepicker_tbl'> <tr> <td> <input type='hidden' id='hdnCtrlName' /> <select ID='ddlMonth' class='dp-control calcender_ddl' style='border: 1px solid #ddd;'> <option value=''>Month</option> <option value='01'>Jan</option> <option value='02'>Feb</option> <option value='03'>Mar</option> <option value='04'>Apr</option> <option value='05'>May</option> <option value='06'>Jun</option> <option value='07'>Jul</option> <option value='08'>Aug</option> <option value='09'>Sep</option> <option value='10'>Oct</option> <option value='11'>Nov</option> <option value='12'>Dec</option> </select> </td> <td><select ID='ddlYear' class='dp-control calcender_ddl' style='border: 1px solid #ddd;'></select></td> <td><span id='btnclose' class='close_dp'>X</span></td> </tr> <tr> <td colspan='3'> <div id='pnlMonths'> </div> </td> </tr> </table> </div> </div>";
+    var html = '<div id="dtModal" class="santPickerdp"><div class="santPickerdp-content"><table class="datepicker_tbl"><thead><tr><td><input type="hidden" id="hdnCtrlName"><select id="ddlMonth" class="dp-control calcender_ddl"><option value="">Month</option><option value="01">Jan</option><option value="02">Feb</option><option value="03">Mar</option><option value="04">Apr</option><option value="05">May</option><option value="06">Jun</option><option value="07">Jul</option><option value="08">Aug</option><option value="09">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select></td><td><select id="ddlYear" class="dp-control calcender_ddl"></select></td><td><span id="btnclose" class="close_dp">X</span></td></tr><tr><td colspan="3"><table style="width:100%"><tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr></table></td></tr></thead><tbody><tr><td colspan="3"><div id="pnlMonths"></div></td></tr></tbody></table></div></div>';
     $.fn.santPicker = function (opts) {
         var settings = $.extend(defaults, opts || {});
         //debugger;
         settings.ctrlId = this[0].id;
-        $('.santPicker').click(function () { $.fn.santPicker.functions.show(opts, this) });
-        $('.santPicker').focus(function () { $.fn.santPicker.functions.show(opts, this) });
+        $('.santPicker').click(function () { $.fn.santPicker.functions.show(settings, this) });
+        $('.santPicker').focus(function () { $.fn.santPicker.functions.show(settings, this) });
         $('span.seldt_dp').click(function () {
 
         });
@@ -351,7 +355,14 @@ const formatTimezone = (date) => {
             $('.santPickerdp').remove();
         });
 
-        $('#' + defaults.ctrlId).val(dateFormat(new Date(), defaults.format));
+        $('#' + defaults.ctrlId).val(dateFormat(new Date(), settings.format));
+
+        $('body').click(function (event) {
+            if ($(event.target)[0].className.indexOf('santPicker') < 0 && $(event.target)[0].className.indexOf('calcender_ddl') < 0 && !$(event.target).is('#dtModal')) {
+                $('.santPickerdp').hide();
+                $('.santPickerdp').remove();
+            }
+        });
     };
     $.fn.santPicker.functions = {
         show: function (opts, ctrl) {
@@ -370,15 +381,21 @@ const formatTimezone = (date) => {
             $('.santPickerdp').css({ 'left': element.left + 'px', 'top': element.top + element.height + 'px', 'position': 'absolute' });
             $('.santPickerdp').show();
 
-            $('.close_dp').click(function () { $.fn.santPicker.functions.hide(opts, ctrl); })
-            var yearstart = new Date().getFullYear() - settings.startYear;
+            $('.close_dp').click(function () { $.fn.santPicker.functions.hide(opts, ctrl); });
+
+
+            var yearDiff = ($.fn.santPicker.functions.getYears(new Date(opts.startDate), new Date(opts.endDate))) + 1;//new Date().getFullYear() - settings.startYear;
+            var start_year = new Date(opts.endDate).getFullYear();
+
             $('#ddlYear').append('<option value="">Select Year</option>');
-            for (var i = yearstart; i < yearstart + settings.noOfyears; i++) {
+
+            for (var i = start_year; i > start_year - yearDiff; i--) {
                 if (i == new Date().getFullYear())
                     $('#ddlYear').append('<option selected="selected" value="' + i + '">' + i + '</option>');
                 else
                     $('#ddlYear').append('<option value="' + i + '">' + i + '</option>');
             }
+
             $('#ddlMonth').val(("0" + String(new Date().getMonth() + 1)).slice(-2));
             $.fn.santPicker.functions.setDays(opts, ctrl);
             $('#ddlMonth').change(function () { $.fn.santPicker.functions.setDays(opts, ctrl); });
@@ -413,7 +430,7 @@ const formatTimezone = (date) => {
 
                 var trDay = '';
                 $('#pnlMonths').html('');
-                var table = '<table class="datepicker_tbl"><tr style="background-color:#2a9d8f;color:white"><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>#DAYS#<tr><td colspan="6"></td></tr></table>';
+                var table = '<table class="datepicker_tbl"><thead></thead><tbody>#DAYS#<tr><td colspan="6"></td></tr></tbody></table>';
 
                 var countDay = 1;
 
@@ -470,6 +487,31 @@ const formatTimezone = (date) => {
         // of January, not February
         daysInMonth: function (month, year) {
             return new Date(year, month, 0).getDate();
+        },
+        getYears: function (birthDate, ageAtDate) {
+            // convert birthDate to date object if already not
+            if (Object.prototype.toString.call(birthDate) !== '[object Date]')
+                birthDate = new Date(birthDate);
+
+            // use today's date if ageAtDate is not provided
+            if (typeof ageAtDate == "undefined")
+                ageAtDate = new Date();
+
+            // convert ageAtDate to date object if already not
+            else if (Object.prototype.toString.call(ageAtDate) !== '[object Date]')
+                ageAtDate = new Date(ageAtDate);
+
+            // if conversion to date object fails return null
+            if (ageAtDate == null || birthDate == null)
+                return null;
+
+
+            var _m = ageAtDate.getMonth() - birthDate.getMonth();
+
+            // answer: ageAt year minus birth year less one (1) if month and day of
+            // ageAt year is before month and day of birth year
+            return (ageAtDate.getFullYear()) - birthDate.getFullYear()
+                - ((_m < 0 || (_m === 0 && ageAtDate.getDate() < birthDate.getDate())) ? 1 : 0)
         }
     };
 
