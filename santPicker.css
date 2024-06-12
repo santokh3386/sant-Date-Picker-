@@ -14,15 +14,14 @@
     background-size: 25px;
     background-position: right;
 }
-table.datepicker_tbl td {
-    text-align: right !important;
-}
+
 .santPickerdp {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
+    width:250px;
     max-width: 350px;
     max-height: 350px;
     overflow: hidden;
@@ -35,7 +34,6 @@ table.datepicker_tbl td {
 /* Modal Content/Box */
 .santPickerdp-content {
     background-color: #fefefe;
-    padding: 10px;
 }
 
 /* The Close Button */
@@ -43,6 +41,7 @@ table.datepicker_tbl td {
     display: inline-block;
     font-size: 11px;
     font-weight: normal;
+    font-weight: bolder;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 4px 5px;
     margin-left: 2px;
@@ -51,9 +50,8 @@ table.datepicker_tbl td {
     max-width: 250px;
     line-height: 15px;
     color: white !important;
-    background-color: #fff;
     background-image: none;
-    background-color: #2a9d8f !important;
+    background-color: #189AB4 !important;
 }
 
     .close_dp:hover,
@@ -78,21 +76,7 @@ table.datepicker_tbl td {
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
-    /*.seldt_dp_disabled::after {
-        content: "day disabled";
-        padding: 2px;
-        display: none;
-        position: relative;
-        top: -20px;
-        right: -30px;
-        width: 150px;
-        text-align: center;
-        background-color: transparent;
-    }
 
-    .seldt_dp_disabled:hover::after {
-        display:inline;
-    }*/
 .seldt_dp_holiday {
     color: white;
     display: block;
@@ -107,29 +91,10 @@ table.datepicker_tbl td {
     -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    
 }
-    /*.seldt_dp_holiday::after {
-        content: "day disabled";
-        padding: 2px;
-        display: none;
-        position: relative;
-        top: -20px;
-        right: -30px;
-        width: 150px;
-        text-align: center;
-        background-color: #fef4c5;
-        border: 1px solid #d4b943;
-        -moz-border-radius: 2px;
-        -webkit-border-radius: 2px;
-        -ms-border-radius: 2px;
-        border-radius: 2px;
-    }*/
 
-    /*.seldt_dp_holiday:hover::after {
-        display: block;
-    }*/
 .seldt_dp {
+    text-align: center;
     color: black;
     display: block;
     font-size: 14px;
@@ -146,11 +111,11 @@ table.datepicker_tbl td {
     /*float: right;*/
 }
 
-.seldt_dp:hover {
-    background-color: #2a9d8f;
-    cursor: pointer;
-    color: white
-}
+    .seldt_dp:hover {
+        background-color: #189AB4;
+        cursor: pointer;
+        color: white
+    }
 
 .datepicker_tbl {
     border-collapse: collapse !important;
@@ -164,14 +129,17 @@ table.datepicker_tbl td {
 }
 
 .datepicker_tbl > tr > th {
-    background-color: #015277 !important;
+    background-color: #189AB4 !important;
     color: white !important;
+}
+
+.datepicker_tbl > tr > td {
+    text-align: center;
 }
 
 .datepicker_tbl {
     width: 100%;
     max-width: 100%;
-    /*margin-bottom: 5px;*/
     color: #015277;
     font-size: 13px !important;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -186,13 +154,18 @@ table.datepicker_tbl td {
         padding: 2px;
         line-height: 1;
         vertical-align: top;
-        border-top: 1px solid #dddddd;
+        text-align: center;
     }
 
-    .datepicker_tbl > thead > tr > th {
-        vertical-align: bottom;
-        border-bottom: 2px solid #dddddd;
+    .datepicker_tbl > thead {
+        background-color: #189AB4;
+        color: white;
     }
+
+        .datepicker_tbl > thead > tr > th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dddddd;
+        }
 
 select.dp-control {
     height: 25px !important;
